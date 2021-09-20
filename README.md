@@ -17,3 +17,9 @@
 [Hello Android Java](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/hello_android_java)
 
 [Mobile Qway](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/mobile_qway)
+
+[Coin Clicker 2](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/coin_clicker_2)
+
+[Algo Sorter](https://github.com/VirtualZeth/AlgoSorter)
+
+[Hello Java!](https://github.com/VirtualZeth/helloJava)
