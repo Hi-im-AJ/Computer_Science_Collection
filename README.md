@@ -11,3 +11,5 @@
 [new-yorker.dk](https://github.com/VirtualZeth/new-yorker.dk)
 
 [Parking Fine System](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/parking_fine_system)
+
+[MVVM Pattern](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/mvvm_pattern)

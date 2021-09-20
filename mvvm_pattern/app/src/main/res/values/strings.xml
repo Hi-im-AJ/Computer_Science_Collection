@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">MVVM</string>
+    <string name="EditText">Edit this text</string>
+    <string name="EditButton">Edit</string>
+    <string name="Welcome">Welcome</string>
+</resources>
