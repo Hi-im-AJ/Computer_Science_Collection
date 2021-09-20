@@ -13,3 +13,5 @@
 [Parking Fine System](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/parking_fine_system)
 
 [MVVM Pattern](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/mvvm_pattern)
+
+[Hello Android Java](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/hello_android_java)
