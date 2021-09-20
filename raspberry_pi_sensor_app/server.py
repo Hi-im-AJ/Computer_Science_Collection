@@ -1,20 +1,36 @@
-import socket
+import socket, select, dht11, json
 from datetime import datetime
 from _thread import start_new_thread
 from time import sleep
-import select
+from RPi import GPIO as gpio
 
 IP = "127.0.0.1"
 PORT = 5000
 BACKLOG = 4096
 
-time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+sensor = dht11.DHT11(pin=17)
+data = {
+    "time": datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+    "temp": False,
+    "humi": False
+}
 
-def counter():
-    global time
+def pi_setup():
+    gpio.setwarnings(False)
+    gpio.setmode(gpio.BCM)
+    gpio.cleanup()
+
+def record_sensor():
+    global data, sensor
     while True:
-        time = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
         sleep(1)
+        sensor_data = sensor.read()
+        data = {
+            "time": datetime.now().strftime('%d-%m-%Y %H:%M:%S'),
+            "temperature": sensor_data.temperature,
+            "humidity": sensor_data.humidity
+        }
+        print(data.temperature)
     
 def server_setup():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
@@ -25,5 +41,6 @@ def server_setup():
         #conn.close()
 
 if __name__ == "__main__":
-    start_new_thread(counter, ())
-    server_setup()
+    pi_setup()
+    start_new_thread(record_sensor, ())
+    #server_setup()
