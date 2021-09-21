@@ -1,0 +1,87 @@
+body {
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: #222;
+}
+
+navbar {
+  position: sticky;
+  display: block;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 60px;
+  z-index: 99;
+  background: white;
+}
+
+.links {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  list-style: none;
+}
+
+.links a {
+  padding: 5px 10px;
+  margin: 0 10px;
+}
+
+.links a:hover {
+  color: lightcoral;
+  transition: 200ms;
+}
+
+main div {
+  margin: 40px 20vw;
+}
+
+main div #me {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  box-shadow: 1px 5px 15px #222;
+}
+
+main div h2 {
+  color: lightcoral;
+  margin: 40px 0 20px 0;
+}
+
+main div p {
+  color: #222;
+  line-height: 32px;
+}
+
+main div #action_btn {
+  position: relative;
+  display: inline-flex;
+  background: lightcoral;
+  color: white;
+  padding: 20px 50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+main div table {
+  border: 2px solid lightcoral;
+  width: 100%;
+  text-align: center;
+}
+main div table tr th {
+  color: lightcoral;
+}
+
+main div table tr td {
+  border: 2px solid lightcoral;
+  height: 40px;
+}
