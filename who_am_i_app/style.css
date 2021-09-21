@@ -72,6 +72,11 @@ main div #action_btn {
   transform: translateX(-50%);
 }
 
+main div #action_btn:hover {
+  background: rgb(246, 148, 148);
+  transition: 200ms;
+}
+
 main div table {
   border: 2px solid lightcoral;
   width: 100%;
