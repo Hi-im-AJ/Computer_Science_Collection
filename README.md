@@ -2,6 +2,8 @@
 
 ## 3. Semester
 
+[Who Am I App](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/who_am_i_app)
+
 [Raspberry Pi Sensor App](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/raspberry_pi_sensor_app)
 
 [Java Echo Server](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/java_echo_server)
