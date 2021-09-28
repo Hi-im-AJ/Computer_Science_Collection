@@ -19,18 +19,21 @@ public class Client {
             output = new PrintWriter(socket.getOutputStream(), true);
 
             provideUsername();
+            chatLoop();
 
-            while(true) {
-                System.out.printf("%s: ", name);
-                String msg = scanner.nextLine();
-                output.println(msg);
-                if(msg.equals("!exit")) break;
-                System.out.println(input.readLine());
-            }
             input.close();
             output.close();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void chatLoop() {
+        new Listener(input).start();
+        while(true) {
+            String msg = scanner.nextLine();
+            if(msg.equals("!exit")) break;
+            output.println(String.format("%s: %s", name, msg));
         }
     }
 
@@ -48,6 +51,6 @@ public class Client {
         }
 
         System.out.printf("Welcome %s%n", name);
-        System.out.println("You can now start chatting!");
+        System.out.println("You can now start chatting!\nUse !exit to close the connection");
     }
 }

@@ -9,15 +9,19 @@ import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ClientThread extends Thread {
-    public LinkedList<String> usernames;
+    public LinkedList<ClientThread> clients;
+    public LinkedList<String> messageQueue;
 
     private final Socket SOCKET;
     private final BufferedReader input;
     private final PrintWriter output;
 
-    public ClientThread(Socket socket, LinkedList<String> usernames) throws IOException {
+    private String username;
+
+    public ClientThread(Socket socket, LinkedList<ClientThread> clients, LinkedList<String> messageQueue) throws IOException {
         this.SOCKET = socket;
-        this.usernames = usernames;
+        this.clients = clients;
+        this.messageQueue = messageQueue;
         this.input = new BufferedReader(new InputStreamReader(SOCKET.getInputStream()));
         this.output = new PrintWriter(SOCKET.getOutputStream(), true);
     }
@@ -28,31 +32,37 @@ public class ClientThread extends Thread {
             boolean gate = validateUsername();
 
             while(gate) {
-                output.println("Test message");
-                Thread.sleep(5000);
+                String msg = input.readLine();
+                messageQueue.add(msg);
             }
             SOCKET.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private boolean validateUsername() throws IOException {
-        AtomicBoolean nameTaken = new AtomicBoolean(false);
-        String username;
         while(true) {
-            username = input.readLine();
-            String finalUsername = username;
-            usernames.forEach((e) -> {
-                if(finalUsername.equals(e)) nameTaken.set(true);
+            AtomicBoolean nameTaken = new AtomicBoolean(false);
+            String name = input.readLine();
+            clients.forEach((e) -> {
+                if(name.equals(e.getUsername())) nameTaken.set(true);
             });
             if(nameTaken.get()) {
                 output.println("TAKEN");
             } else {
                 output.println("FREE");
-                usernames.add(username);
+                this.username = name;
                 return true;
             }
         }
+    }
+
+    public void push(String msg) {
+        output.println(msg);
+    }
+    public String getUsername() {
+        return this.username;
     }
 }
