@@ -19,8 +19,11 @@ public class Client {
             output = new PrintWriter(socket.getOutputStream(), true);
 
             provideUsername();
+            var listener = new Listener(input);
+            listener.start();
             chatLoop();
 
+            listener.interrupt();
             input.close();
             output.close();
         } catch (Exception e) {
@@ -29,11 +32,10 @@ public class Client {
     }
 
     private static void chatLoop() {
-        new Listener(input).start();
         while(true) {
             String msg = scanner.nextLine();
-            if(msg.equals("!exit")) break;
             output.println(String.format("%s: %s", name, msg));
+            if(msg.equals("!exit")) break;
         }
     }
 

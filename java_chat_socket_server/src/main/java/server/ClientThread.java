@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ClientThread extends Thread {
     public LinkedList<ClientThread> clients;
     public LinkedList<String> messageQueue;
+    public boolean exit = false;
 
     private final Socket SOCKET;
     private final BufferedReader input;
@@ -31,8 +32,12 @@ public class ClientThread extends Thread {
         try {
             boolean gate = validateUsername();
 
-            while(gate) {
+            while(this.SOCKET.isConnected() && gate) {
                 String msg = input.readLine();
+                if(msg.equals(String.format("%s: !exit", this.username))) {
+                    exit = true;
+                    break;
+                }
                 messageQueue.add(msg);
             }
             SOCKET.close();
