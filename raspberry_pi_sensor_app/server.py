@@ -7,10 +7,7 @@ from time import sleep
 #from RPi import GPIO as gpio
 from secrets import token_bytes
 
-IP = "localhost"
-PORT = 5000
 BACKLOG = 5
-KEY = ENV.KEY #token_bytes(16)
 
 sensor = False
 data = {
@@ -44,29 +41,29 @@ def record_sensor():
         data["time"] = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
 
 def encrypt(msg):
-    cipher = AES.new(KEY, AES.MODE_EAX)
+    cipher = AES.new(ENV.KEY, AES.MODE_EAX)
     nonce = cipher.nonce
     ciphertext, tag = cipher.encrypt_and_digest(msg.encode("utf-8"))
     return nonce, ciphertext, tag
 
 def handle_socket(client):
-    while True:
+    #while True:
         try:
             json_msg = json.dumps(data)
             nonce, ciphertext, tag = encrypt(json_msg)
             list = [b64encode(i).decode("utf-8") for i in [nonce, ciphertext, tag]]
-            list = {"nonce": list[0], "ciphertext": list[1], "tag": list[2]}
-            client.send(json.dumps(list).encode("utf-8"))
+            dict = {"nonce": list[0], "ciphertext": list[1], "tag": list[2]}
+            client.send(json.dumps(dict).encode("utf-8"))
         except:
             client.close()
-        sleep(1)
+        client.close() #sleep(1)
 
 def server():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as server:
         server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        server.bind((IP, PORT))
+        server.bind((ENV.SERVER_IP, ENV.PORT))
         server.listen(BACKLOG)
-        print(f"server running on {IP}:{PORT}")
+        print(f"server running on {ENV.SERVER_IP}:{ENV.PORT}")
 
         while True:
             client, addr = server.accept()
