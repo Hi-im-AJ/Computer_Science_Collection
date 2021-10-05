@@ -1,20 +1,20 @@
 import socket, ENV, json
 from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
 from base64 import b64decode
 from time import sleep
 
-def decrypt(msg):
-    nonce, ciphertext, tag = (b64decode(msg[i]) for i in ["nonce", "ciphertext", "tag"])
-    cipher = AES.new(ENV.KEY, AES.MODE_EAX, nonce)
-    msg = cipher.decrypt_and_verify(ciphertext, tag)
-    return msg.decode("utf-8")
+def decrypt(jsonObj):
+    iv, ct = (b64decode(jsonObj[i]) for i in ["iv", "ct"])
+    cipher = AES.new(ENV.KEY, AES.MODE_CBC, iv)
+    pt = unpad(cipher.decrypt(ct), AES.block_size)
+    return pt
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as conn:
     conn.connect((ENV.CLIENT_IP, ENV.PORT))
     while True:
         msg = conn.recv(1024)
         msg = msg.decode("utf-8")
-        print(msg)
         msg = json.loads(decrypt(json.loads(msg)))
         print(msg["time"])
         sleep(1)
