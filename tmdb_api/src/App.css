@@ -1,0 +1,8 @@
+.poster {
+  width: 250px;
+  box-shadow: 5px 5px 5px #222;
+}
+.poster:hover {
+  transform: scale(1.025);
+  transition: 200ms;
+}
