@@ -2,6 +2,10 @@
 
 ## 3. Semester
 
+[The Movie Database API](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/tmdb_api)
+
+[Java Chat Socket Server](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/java_chat_socket_server)
+
 [Who Am I App](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/who_am_i_app)
 
 [Raspberry Pi Sensor App](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/raspberry_pi_sensor_app)
