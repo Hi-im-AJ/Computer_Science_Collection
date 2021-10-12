@@ -1,1 +1,1 @@
-![](https://github.com/VirtualZeth/Computer_Science_Collection/tree/master/tmdb_api/assets/example.png)
+![Example](https://raw.githubusercontent.com/VirtualZeth/Computer_Science_Collection/master/tmdb_api/assets/example.png)
