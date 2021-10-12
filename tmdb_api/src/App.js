@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import Movie from "./components/Movie";
@@ -8,15 +8,41 @@ function App() {
   const [searchResult, setSearchResult] = useState(null);
   const [lastQuery, setLastQuery] = useState("");
   const [input, setInput] = useState("");
+  const [queueNextPage, setQueueNextPage] = useState(false);
 
   const search = async (query, page = 1) => {
     setLastQuery(query);
     const res = await axios.get(
-      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=${lastQuery}&page=${page}&include_adult=false`
+      `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=${
+        page > 1 ? lastQuery : query
+      }&page=${page}&include_adult=false`
     );
     setSearchResult(res.data);
-    page !== 1 ? setMovies([...movies, res.data.results]) : setMovies([]);
+    page > 1 ? setMovies([...movies, ...res.data.results]) : setMovies(res.data.results);
   };
+
+  const callbackSearch = useCallback(search, [lastQuery, movies]);
+
+  useEffect(() => {
+    const scrollHandler = async () => {
+      if (
+        window.innerHeight + window.pageYOffset >= document.body.offsetHeight &&
+        searchResult !== null &&
+        queueNextPage === false
+      ) {
+        if (searchResult.page < searchResult.total_pages) {
+          setQueueNextPage(true);
+          await callbackSearch(lastQuery, searchResult.page + 1);
+          setQueueNextPage(false);
+        }
+      }
+    };
+    window.addEventListener("scroll", scrollHandler, true);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler, true);
+    };
+  }, [callbackSearch, searchResult, lastQuery, queueNextPage]);
+
   const onChange = (e) => setInput(e.target.value);
   const onKeyPress = (e) => (e.code === "Enter" ? search(input) : undefined);
 
@@ -41,9 +67,9 @@ function App() {
       </Container>
       <Container className="">
         <Row>
-          {searchResult != null &&
-            searchResult.results.map((e) => (
-              <Col key={e.id} className="m-3">
+          {movies.length > 0 &&
+            movies.map((e) => (
+              <Col key={e.id + Math.random() * 9001} className="m-3">
                 <Movie movie={e} />
               </Col>
             ))}
