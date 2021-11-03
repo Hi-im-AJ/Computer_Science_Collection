@@ -2,6 +2,8 @@
 
 ## 3. Semester
 
+[Node Clicker](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/node_clicker)
+
 [The Movie Database API](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/tmdb_api)
 
 [Java Chat Socket Server](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/java_chat_socket_server)
