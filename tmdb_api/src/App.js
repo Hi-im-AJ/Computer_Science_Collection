@@ -3,7 +3,7 @@ import axios from "axios";
 import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import Movie from "./components/Movie";
 
-function App() {
+const App = () => {
   const [movies, setMovies] = useState([]);
   const [searchResult, setSearchResult] = useState(null);
   const [lastQuery, setLastQuery] = useState("");
@@ -77,6 +77,6 @@ function App() {
       </Container>
     </div>
   );
-}
+};
 
 export default App;
