@@ -6,11 +6,11 @@ dotenv.config({ path: "./config/config.env" });
 
 connectDB();
 
-// const save = require("./route/save");
+const click = require("./route/click");
 
 const app = express();
 
-// app.use("/api/save", save);
+app.use("/api/click", click);
 
 const PORT = process.env.PORT || 5000;
 
