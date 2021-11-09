@@ -2,6 +2,8 @@
 
 ## 3. Semester
 
+[Clock API](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/clock_api)
+
 [Node Clicker](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/node_clicker)
 
 [The Movie Database API](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/tmdb_api)
