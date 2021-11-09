@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "concurrently \"nodemon index.js\" \"cd client && npm start\""
   },
   "keywords": [],
   "devDependencies": {
+    "concurrently": "^6.3.0",
     "nodemon": "^2.0.14"
   },
   "dependencies": {
