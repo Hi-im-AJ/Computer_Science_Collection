@@ -22,6 +22,12 @@ router
   })
   .post("/", (req, res) => {
     const log = { id: Math.round(Math.random() * Number.MAX_SAFE_INTEGER), ...req.body };
+    if (Object.keys(log).length !== 3 || typeof log.title !== "string" || typeof log.description !== "string") {
+      return res.status(422).json({
+        success: false,
+        message: "Log contained invalid input types!",
+      });
+    }
     logs.push(log);
     res.status(201).json({
       success: true,
