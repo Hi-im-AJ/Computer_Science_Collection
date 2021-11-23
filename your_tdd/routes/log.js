@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-const logs = [
+let logs = [
   {
     id: 1,
     title: "Authentication bypass detected",
@@ -10,9 +10,11 @@ const logs = [
   },
 ];
 
+const getLog = (id) => logs.find((e) => e.id === Number(id));
+
 router
   .get("/:id", (req, res) => {
-    const log = logs.find((e) => e.id === Number(req.params.id));
+    const log = getLog(req.params.id);
     if (log === undefined)
       return res.status(404).json({
         success: false,
@@ -34,7 +36,19 @@ router
       message: "Log added successfully!",
     });
   })
-  .put("/:id", (req, res) => {})
+  .put("/:id", (req, res) => {
+    let log = getLog(req.params.id);
+    if (!log)
+      return res.status(404).json({
+        success: false,
+        message: "Log was not found!",
+      });
+    logs = logs.map((e) => (e.id === log.id ? { ...e, ...req.body } : e));
+    return res.status(200).json({
+      success: true,
+      message: "Log updated successfully!",
+    });
+  })
   .delete("/:id", (req, res) => {});
 
 module.exports = router;

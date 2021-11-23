@@ -1,6 +1,8 @@
 const request = require("supertest");
 const app = require("../app");
 
+const max_int = Number.MAX_SAFE_INTEGER;
+
 describe("/Log", () => {
   it("GET /log/1 --> Get specific log by ID", async () => {
     return request(app)
@@ -18,7 +20,6 @@ describe("/Log", () => {
       });
   });
   it("GET /log/id --> 404 if not found", async () => {
-    const max_int = Number.MAX_SAFE_INTEGER;
     return request(app)
       .get(`/log/${max_int}`)
       .expect("Content-Type", /json/)
@@ -83,6 +84,24 @@ describe("/Log", () => {
           expect.objectContaining({
             success: true,
             message: "Log updated successfully!",
+          })
+        );
+      });
+  });
+  it("PUT /log/id --> 404 if not found", async () => {
+    return request(app)
+      .put(`/log/${max_int}`)
+      .send({
+        title: "Hackerman was here!",
+        description: "You have no logs on me! Haha!",
+      })
+      .expect("Content-Type", /json/)
+      .expect(404)
+      .then((res) => {
+        expect(res.body).toEqual(
+          expect.objectContaining({
+            success: false,
+            message: "Log was not found!",
           })
         );
       });
