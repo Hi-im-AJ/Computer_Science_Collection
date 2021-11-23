@@ -37,7 +37,7 @@ router
     });
   })
   .put("/:id", (req, res) => {
-    let log = getLog(req.params.id);
+    const log = getLog(req.params.id);
     if (!log)
       return res.status(404).json({
         success: false,
@@ -49,6 +49,20 @@ router
       message: "Log updated successfully!",
     });
   })
-  .delete("/:id", (req, res) => {});
+  .delete("/:id", (req, res) => {
+    let log = getLog(req.params.id);
+    if (!log)
+      return res.status(404).json({
+        success: false,
+        message: "Log was not found!",
+      });
+    logs = logs.filter((e) => {
+      return e.id !== log.id;
+    });
+    res.status(200).json({
+      success: true,
+      message: "Log deleted successfully!",
+    });
+  });
 
 module.exports = router;
