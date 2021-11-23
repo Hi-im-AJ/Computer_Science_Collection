@@ -13,10 +13,21 @@ const logs = [
 router
   .get("/:id", (req, res) => {
     const log = logs.find((e) => e.id === Number(req.params.id));
-    if (log === undefined) return res.status(404).send("Not found");
+    if (log === undefined)
+      return res.status(404).json({
+        success: false,
+        message: "Log was not found!",
+      });
     res.status(200).json(log);
   })
-  .post("/", (req, res) => {})
+  .post("/", (req, res) => {
+    const log = { id: Math.round(Math.random() * Number.MAX_SAFE_INTEGER), ...req.body };
+    logs.push(log);
+    res.status(201).json({
+      success: true,
+      message: "Log added successfully!",
+    });
+  })
   .put("/:id", (req, res) => {})
   .delete("/:id", (req, res) => {});
 
