@@ -1,5 +1,9 @@
 # Computer Science Collection List
 
+## 4. Semester
+
+[React & Redux Setup Template](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/react_redux_setup_template)
+
 ## 3. Semester
 
 [Your TDD](https://github.com/Hi-im-AJ/Computer_Science_Collection/tree/master/your_tdd)
