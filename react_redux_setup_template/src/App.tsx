@@ -1,8 +1,15 @@
+import { BrowserRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Popular from "./components/Popular";
+
 const App = () => {
   return (
-    <div>
-      <p>Hello World!</p>
-    </div>
+    <main>
+      <Navbar />
+      <BrowserRouter>
+        <Popular />
+      </BrowserRouter>
+    </main>
   );
 };
 
