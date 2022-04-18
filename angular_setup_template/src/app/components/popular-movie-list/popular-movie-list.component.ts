@@ -1,15 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MovieService } from 'src/app/services/movie.service';
 
 @Component({
-  selector: 'app-popular-movie-list',
+  selector: 'app-list',
   templateUrl: './popular-movie-list.component.html',
-  styleUrls: ['./popular-movie-list.component.scss']
+  styleUrls: ['./popular-movie-list.component.scss'],
 })
 export class PopularMovieListComponent implements OnInit {
+  movies: Movie[] = [];
+  constructor(private movieService: MovieService) {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
