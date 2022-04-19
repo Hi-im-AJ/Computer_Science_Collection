@@ -1,1 +1,8 @@
-<p>popular-movie-list works!</p>
+<button (click)="onClick()">Click me!</button>
+<p>{{ message }}</p>
+<ul>
+  <li *ngFor="let movie of movies">
+    <img [src]="movie.backdrop_path" />
+    <h4>{{ movie.title }}</h4>
+  </li>
+</ul>

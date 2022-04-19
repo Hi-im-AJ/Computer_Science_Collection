@@ -1,0 +1,15 @@
+ul {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  & li {
+    display: flex;
+    margin: 2rem 0;
+    & h4 {
+      margin-left: 1rem;
+    }
+  }
+}
+img {
+  max-width: 10rem;
+}
